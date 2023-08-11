@@ -1,29 +1,29 @@
-import { StringLike } from "@firebase/util";
-
+import { createOrder } from "zmp-sdk";
+import { getConfig } from "../config";
 export interface SportCenter {
   id: number;
   name: string;
   districtId: number;
   location: Location;
   address: string;
-  image: string[];  // Mảng các đường dẫn hình ảnh
-  type: SportType[];  // Mảng các loại thể thao
-  
+  image: string[]; // Mảng các đường dẫn hình ảnh
+  type: SportType[]; // Mảng các loại thể thao
+
   owner: UserInfo;
   hotline: string;
-  map: string;    // deeplink google map
+  map: string; // deeplink google map
   rating: number; // [1...5]
 
   yards: Yard[];
 }
 
-export interface Yard  {
+export interface Yard {
   id: string; // SportCenterId_number
-  sportCenter: SportCenter; // 
+  sportCenter: SportCenter; //
   number: number; // Sân số mấy
 
-  bookings: Booking[];  // Các đơn đặt chỗ của sân này
-  bookedRanges: TimeRange[];  // Các khoảng thời gian đã bị đặt. Dùng để truy vấn nhanh hơn
+  bookings: Booking[]; // Các đơn đặt chỗ của sân này
+  bookedRanges: TimeRange[]; // Các khoảng thời gian đã bị đặt. Dùng để truy vấn nhanh hơn
 }
 
 export interface Booking {
@@ -34,7 +34,7 @@ export interface Booking {
   timeRange: TimeRange; // Giờ đặt sân
 
   guests: UserInfo[]; // Member đã join
-  isPublic: boolean;  // Có tuyển người lạ?
+  isPublic: boolean; // Có tuyển người lạ?
   waitToJoin: UserInfo[]; // Danh sách người lạ chờ accept join
 }
 
@@ -55,7 +55,7 @@ export interface Location {
 
 export interface UserInfo {
   id: string;
-  favouriteSport: SportType[];  // Mảng các loại thể thao yêu thích
+  favouriteSport: SportType[]; // Mảng các loại thể thao yêu thích
   zaUserInfo: {
     id: string;
     name: string;
@@ -69,10 +69,9 @@ export interface SportType {
   name: string;
 }
 
-
 interface TimeRange {
-  start: number;  // Giờ bắt đầu (định dạng 24 giờ, ví dụ: 8)
-  end: number;    // Giờ kết thúc (định dạng 24 giờ, ví dụ: 10)
+  start: number; // Giờ bắt đầu (định dạng 24 giờ, ví dụ: 8)
+  end: number; // Giờ kết thúc (định dạng 24 giờ, ví dụ: 10)
 }
 
 // Function to check if TimeRange is valid (start < end)
@@ -121,7 +120,7 @@ export interface Extra {
 
 // Function to add a Booking to Yard and update bookedRanges
 export function addBookingToYard(yard: Yard, booking: Booking): boolean {
-  const isOverlapping = yard.bookedRanges.some(existingRange =>
+  const isOverlapping = yard.bookedRanges.some((existingRange) =>
     isTimeRangeOverlap(existingRange, booking.timeRange)
   );
 
@@ -178,3 +177,20 @@ function findInsertIndex(ranges: TimeRange[], newRange: TimeRange): number {
 function isTimeRangeOverlap(range1: TimeRange, range2: TimeRange): boolean {
   return range1.start < range2.end && range2.start < range1.end;
 }
+
+const pay = (amount: number, description?: string) =>
+  createOrder({
+    desc:
+      description ??
+      `Thanh toán cho ${getConfig((config) => config.app.title)}`,
+    item: [],
+    amount: amount,
+    success: (data) => {
+      console.log("Payment success: ", data);
+    },
+    fail: (err) => {
+      console.log("Payment error: ", err);
+    },
+  });
+
+export default pay;

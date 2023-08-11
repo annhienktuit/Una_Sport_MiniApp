@@ -1,11 +1,20 @@
-import { atom } from "recoil";
-import { userInfo } from "zmp-sdk";
+import { atom, selector } from "recoil";
+import { getAppInfo, getLocation, getUserInfo } from "zmp-sdk";
 
-export const userState = atom<userInfo>({
+export const userState = selector({
   key: "user",
-  default: {
-    id: "12345678",
-    name: "Zalo",
-    avatar: "ZA",
+  get: async () => {
+    const { userInfo } = await getUserInfo({});
+    console.log(userInfo);
+    return userInfo;
+  },
+});
+
+export const getInfo = selector({
+  key: "info",
+  get: async () => {
+    const appInfo = await getAppInfo({});
+    console.log(appInfo);
+    return appInfo;
   },
 });
