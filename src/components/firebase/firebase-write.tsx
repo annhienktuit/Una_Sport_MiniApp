@@ -1,7 +1,7 @@
 import { getDatabase, ref, set } from "firebase/database";
-import { fbApp } from "./firebase";
+import { firebaseDB } from "./firebase";
 export function writeUserData(key, value) {
-  const db = getDatabase(fbApp);
+  const db = getDatabase(firebaseDB);
   set(ref(db, "data/" + key), value);
   console.log(value);
 }

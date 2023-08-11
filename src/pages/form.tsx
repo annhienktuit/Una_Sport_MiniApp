@@ -6,6 +6,7 @@ import { userState } from "../state";
 import { getDatabase, ref, set } from "firebase/database";
 import { getUserInfo } from "zmp-sdk/apis";
 import { writeUserData } from "../components/firebase/firebase-write";
+import { getUser } from "../utils/get-userInfo";
 type UserForm = Omit<userInfo, "id">;
 
 const FormPage: React.FunctionComponent = () => {
@@ -25,16 +26,6 @@ const FormPage: React.FunctionComponent = () => {
   const handleSubmit = () => {
     snackbar.openSnackbar({ duration: 3000, text: "saved", type: "success" });
     setUser((user) => ({ ...user, ...form }));
-  };
-
-  const getUser = async () => {
-    try {
-      const { userInfo } = await getUserInfo({});
-      console.log(userInfo);
-    } catch (error) {
-      // xử lý khi gọi api thất bại
-      console.log(error);
-    }
   };
 
   return (
