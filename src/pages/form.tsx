@@ -5,18 +5,8 @@ import { userInfo } from "zmp-sdk";
 import { userState } from "../state";
 import { getDatabase, ref, set } from "firebase/database";
 import { getUserInfo } from "zmp-sdk/apis";
-
+import { writeUserData } from "../components/firebase/firebase-write";
 type UserForm = Omit<userInfo, "id">;
-
-function writeUserData(userId, name, email, imageUrl) {
-  const db = getDatabase();
-  set(ref(db, "users/" + userId), {
-    username: name,
-    email: email,
-    profile_picture: imageUrl,
-  });
-  console.log(userId);
-}
 
 const FormPage: React.FunctionComponent = () => {
   const [user, setUser] = useRecoilState<userInfo>(userState);
@@ -73,7 +63,7 @@ const FormPage: React.FunctionComponent = () => {
               onClick={() => {
                 getUser();
                 handleSubmit();
-                writeUserData("1", "2", "3", "4");
+                writeUserData("1", "2");
               }}
             >
               Submit
