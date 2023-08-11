@@ -2,10 +2,10 @@ import React, { FC } from "react";
 import { Route, Routes } from "react-router";
 import { Box } from "zmp-ui";
 import { getSystemInfo } from "zmp-sdk";
-import HomePage from "../pages/home";
+import HomePage from "../pages/home/home";
 import { Navigation } from "./navigation";
-import FindGrounds from "../pages/findGroups";
-import Calendar from "../pages/calendar";
+import FindGrounds from "../pages/findGroups/findGroups";
+import Calendar from "../pages/calendar/calendar";
 import Profile from "../pages/profile";
 
 if (getSystemInfo().platform === "android") {
