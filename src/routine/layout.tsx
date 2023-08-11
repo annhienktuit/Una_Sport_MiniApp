@@ -6,7 +6,7 @@ import HomePage from "../pages/home";
 import { Navigation } from "./navigation";
 import FindGrounds from "../pages/findGroups";
 import Calendar from "../pages/calendar";
-import Profile from "../pages/profile";
+import Profile from "../pages/profile/profile";
 
 if (getSystemInfo().platform === "android") {
   const androidSafeTop = Math.round(
