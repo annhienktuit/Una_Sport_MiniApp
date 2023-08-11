@@ -39,8 +39,8 @@ export interface Booking {
 }
 
 interface TimeRange {
-  start: number;  // Giờ bắt đầu (định dạng 24 giờ, ví dụ: 8)
-  end: number;    // Giờ kết thúc (định dạng 24 giờ, ví dụ: 10)
+  start: number;  // Giờ bắt đầu (định dạng timestamp)
+  end: number;    // Giờ kết thúc (định dạng timestamp)
 }
 
 export interface District {
