@@ -1,8 +1,8 @@
-import React, { Suspense } from "react";
-import { useRecoilValue } from "recoil";
-import { getUserInfo } from "zmp-sdk/apis";
-import { Avatar, Box, Page, Text } from "zmp-ui";
-import { userState } from "../../state";
+import React, { Suspense, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { getAppInfo } from "zmp-sdk";
+import pay from "../../models/models";
+import { userState, getInfo } from "../../state";
 
 function Welcome() {
   const user = useRecoilValue(userState);
@@ -19,6 +19,7 @@ function Welcome() {
                       src={user.avatar}
                       alt="Your Image"
                       className="w-full max-w-screen-lg mt-2 rounded-ful"
+                      onClick={() => pay(50000)}
                     />
                   </div>
                 </div>
