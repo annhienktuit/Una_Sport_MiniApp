@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getDatabase } from "@firebase/database";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -9,6 +10,8 @@ import { getAnalytics } from "firebase/analytics";
 const firebaseConfig = {
   apiKey: "AIzaSyBdrTxmrBF8W-K2OkYvzYPL7571dFO3beM",
   authDomain: "codeflex-miniapp.firebaseapp.com",
+  databaseURL:
+    "https://codeflex-miniapp-default-rtdb.asia-southeast1.firebasedatabase.app", // Updated databaseURL
   projectId: "codeflex-miniapp",
   storageBucket: "codeflex-miniapp.appspot.com",
   messagingSenderId: "307706444225",
@@ -17,6 +20,6 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const fbApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(fbApp);
-export default fbApp;
+const firebaseDB = initializeApp(firebaseConfig);
+const analytics = getAnalytics(firebaseDB);
+export { firebaseDB };
