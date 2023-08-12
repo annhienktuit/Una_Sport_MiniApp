@@ -9,7 +9,7 @@ export interface SportCenter {
   image: string[]; // Mảng các đường dẫn hình ảnh
   type: SportType[]; // Mảng các loại thể thao
 
-  owner: UserInfo;
+  owner: string;
   hotline: string;
   map: string; // deeplink google map
   rating: number; // [1...5]
