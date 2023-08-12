@@ -16,16 +16,18 @@ export const Section: FC<PropsWithChildren<SectionProps>> = ({
 }) => {
   return (
     <Box
-      ml={4}
-      mr={4}
-      className={`bg-background ${padding === "all" ? "p-4 space-y-4" : ""} ${
+      p={4}
+      className={` ${padding === "all" ? "p-4 space-y-4" : ""} ${
         padding === "title-only" ? "py-4 space-y-4" : ""
       }`}
       {...props}
     >
-      <Text.Title className={`${padding === "title-only" ? "px-4" : ""}`}>
+      <Text.Header
+        size="normal"
+        className={`${padding === "title-only" ? "px-4" : ""}`}
+      >
         {title}
-      </Text.Title>
+      </Text.Header>
       {children}
     </Box>
   );

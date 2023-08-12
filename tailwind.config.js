@@ -15,6 +15,10 @@ module.exports = {
         accent3: '#2EC4B6',
         neutral1: '#C0C0C0',
         neutral2: '#E5E5E5',
+        text02: '#767A7F',
+        text01: '#141415',
+        text03: '#B9BDC1',
+        warning: '#E8BA02'
       }
     },
   },
