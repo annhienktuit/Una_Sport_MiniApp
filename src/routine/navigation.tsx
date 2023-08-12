@@ -10,7 +10,7 @@ const tabs: Record<string, MenuItem> = {
     icon: <Icon icon="zi-home" />,
   },
   "/findGroups": {
-    label: "Chơi ké",
+    label: "Ghép sân",
     icon: <Icon icon="zi-group" />,
   },
   "/calendar": {
