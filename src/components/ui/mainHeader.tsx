@@ -5,12 +5,11 @@ import { localizeString } from "../../assets/string";
 export const MainHeader: FC = () => {
   const navigate = useNavigate();
   return (
-    <Box p={4} className="app-header bg-white ">
+    <Box className="app-header bg-white" pl={4} pt={3} pr={4} pb={3}>
       <Input.Search
         onFocus={() => navigate("/search")}
         placeholder={localizeString.searchPlaceHolder}
       />
-      <div className="bg-black h-52 flex mt-2"></div>
     </Box>
   );
 };
