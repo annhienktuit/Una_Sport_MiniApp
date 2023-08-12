@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { getAppInfo } from "zmp-sdk";
 import ConfirmBottomSheet from "../../components/ui/confirm-bottomsheets";
 import CustomPopup from "../../components/ui/popup";
+import ConfirmTextInputSheet from "../../components/ui/text-bottomsheet";
 import { userState } from "../../state";
 
 function Welcome() {
@@ -19,6 +20,7 @@ function Welcome() {
   const user = useRecoilValue(userState);
   const [isSheetVisible, setIsSheetVisible] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isTextSheetVisible, setIsTextSheetVisible] = useState(false);
 
   return (
     <>
@@ -34,7 +36,7 @@ function Welcome() {
                       alt="Your Image"
                       className="w-full max-w-screen-lg mt-2 rounded-ful"
                       onClick={() => {
-                        setIsSheetVisible(true);
+                        setIsTextSheetVisible(true);
                       }}
                     />
                   </div>
@@ -87,6 +89,12 @@ function Welcome() {
           onHomeClick={() => navigate("/")}
           detailButtonLabel="Xem chi tiết"
           onDetailClick={() => setIsPopupVisible(false)}
+        />
+        <ConfirmTextInputSheet
+          title="Hãy nhập lời kêu gọi đồng đội của bạn"
+          visible={isTextSheetVisible}
+          onNegativeClick={() => setIsPopupVisible(false)}
+          onPositiveClick={() => setIsPopupVisible(false)}
         />
         ;
       </section>
