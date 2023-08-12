@@ -19,6 +19,9 @@ module.exports = {
         text01: "#141415",
         text03: "#B9BDC1",
         warning: "#E8BA02",
+        button: "#D6E9FF",
+        buttonText: "#006AF5",
+        successTextColor: "#34B764"
       },
     },
   },

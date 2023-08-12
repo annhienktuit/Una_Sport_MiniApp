@@ -1,5 +1,6 @@
 import { atom, selector } from "recoil";
 import { getAppInfo, getLocation, getUserInfo } from "zmp-sdk";
+import { SportCenter } from "./models/models";
 
 export const userState = selector({
   key: "user",
@@ -17,4 +18,9 @@ export const getInfo = selector({
     console.log(appInfo);
     return appInfo;
   },
+});
+
+export const slectedSportCenterState = atom<SportCenter | null>({
+  key: 'slectedSportCenterState',
+  default: null, 
 });
