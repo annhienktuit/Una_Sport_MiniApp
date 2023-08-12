@@ -2,7 +2,6 @@ import React from "react";
 import { Page, Text } from "zmp-ui";
 import { MainHeader } from "../../components/ui/mainHeader";
 import { PublicCourtListContent } from "./public-court";
-import { PublicCourtNearbyPage } from "./public-court-nearby";
 
 const FindGrounds: React.FunctionComponent = () => {
   return (
@@ -17,7 +16,7 @@ const FindGrounds: React.FunctionComponent = () => {
           </Text>
         </div>
         <MainHeader />
-        <PublicCourtListContent></PublicCourtListContent>
+        <PublicCourtListContent />
       </div>
     </Page>
   );
