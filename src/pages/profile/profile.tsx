@@ -1,7 +1,8 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { getAppInfo } from "zmp-sdk";
+import CustomBottomSheet from "../../components/ui/bottomsheets";
 import pay from "../../models/models";
 import { userState, getInfo } from "../../state";
 
@@ -16,6 +17,8 @@ function Welcome() {
     }, delay);
   };
   const user = useRecoilValue(userState);
+  const [isSheetVisible, setIsSheetVisible] = useState(false);
+
   return (
     <>
       <section className="pt-16 bg-blueGray-50">
@@ -30,8 +33,7 @@ function Welcome() {
                       alt="Your Image"
                       className="w-full max-w-screen-lg mt-2 rounded-ful"
                       onClick={() => {
-                        handleNavigateClick();
-                        pay(50000);
+                        setIsSheetVisible(true);
                       }}
                     />
                   </div>
@@ -69,6 +71,13 @@ function Welcome() {
             </div>
           </div>
         </div>
+        <CustomBottomSheet
+          title="Xác nhận thông tin"
+          body="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          visible={isSheetVisible}
+          onClose={() => setIsSheetVisible(false)}
+        />
+        ;
       </section>
     </>
   );
