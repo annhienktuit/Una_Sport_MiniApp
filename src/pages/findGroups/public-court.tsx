@@ -15,9 +15,9 @@ export const PublicCourtListContent: FC = () => {
         {numbers.map((number) => (
           <div
             key={number}
-            className="bg-white rounded-lg w-full h-32 flex items-left justify-left"
+            className="bg-white rounded-lg w-full h-[132px] flex items-left justify-left"
           >
-            <div className="h-32 aspect-square relative">
+            <div className="aspect-square relative">
               <img
                 loading="lazy"
                 src="https://img.chelseafc.com/image/upload/f_auto,w_1440,c_fill,g_faces,q_90/editorial/news/2023/03/13/Stamford_Bridge_inside_stadium_view.jpg"
