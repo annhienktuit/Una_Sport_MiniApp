@@ -51,7 +51,7 @@ export const SportCenterListContent: FC = () => {
             <div className="h-24 aspect-square relative">
               <img
                 loading="lazy"
-                src="https://chungcumulberrylane.org/wp-content/uploads/sites/68/2014/10/san-cau-long.jpg"
+                src={data.image[0]}
                 className="absolute left-0 right-0 top-0 bottom-0 w-full h-full object-cover object-center rounded-lg bg-skeleton"
               />
             </div>
@@ -66,7 +66,7 @@ export const SportCenterListContent: FC = () => {
                 {data.address}
               </Text>
               <Text size={"xxSmall"} className="text-text03">
-                {`Còn ${randomCount} sân`}
+              {`Còn ${generateRandomNumber()} sân`}
               </Text>
               <Text size={"xSmall"} className="text-text01">
 

@@ -158,4 +158,19 @@ export function fuse_searchAndRankSportCenters(query: string, sportCenters: Spor
   return searchResults.map(result => result.item);
 }
 
+// Sort pop
+
+export function getNearestSportCenters(userLocation: Location, sportCenters: SportCenter[], top: number): SportCenter[] {
+  const sortedSportCenters = sportCenters.slice(); // Create a copy of the array
+  sortedSportCenters.sort((center1, center2) => {
+    const distance1 = calcCrowFliesDistance(userLocation, center1.location);
+    const distance2 = calcCrowFliesDistance(userLocation, center2.location);
+    return distance1 - distance2;
+  });
+
+  const actualTop = Math.min(top, sortedSportCenters.length); // Ensure top is within bounds
+  return sortedSportCenters.slice(0, actualTop); // Return the specified number of nearest sport centers
+}
+
+
 
