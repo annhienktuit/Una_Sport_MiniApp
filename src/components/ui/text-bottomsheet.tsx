@@ -42,7 +42,12 @@ const ConfirmTextInputSheet = ({
               </Button>
             </Box>
             <Box style={{ flex: 1 }} pl={1}>
-              <Button fullWidth onClick={() => onPositiveClick(inputValue)}>
+              <Button
+                fullWidth
+                onClick={() => {
+                  onPositiveClick(inputValue);
+                }}
+              >
                 Cho phép
               </Button>
             </Box>
