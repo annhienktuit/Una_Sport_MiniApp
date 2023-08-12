@@ -37,7 +37,8 @@ function Welcome() {
                       alt="Your Image"
                       className="w-full max-w-screen-lg mt-2 rounded-ful"
                       onClick={() => {
-                        setIsSheetVisible(true);
+                        // setIsSheetVisible(true);
+                        navigate("/detail-info");
                       }}
                     />
                   </div>

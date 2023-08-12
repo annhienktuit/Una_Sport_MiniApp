@@ -9,6 +9,7 @@ import Calendar from "../pages/calendar/calendar";
 import Profile from "../pages/profile/profile";
 import DetailSportCenter from "../pages/detailSportCenter/detailSportCenter";
 import PublicCourtDetail from "../pages/findGroups/public-court-details";
+import DetailInfo from "../pages/details/info-detail";
 
 if (getSystemInfo().platform === "android") {
   const androidSafeTop = Math.round(
@@ -35,6 +36,7 @@ export const Layout: FC = () => {
             element={<DetailSportCenter />}
           ></Route>
           <Route path="/public-court" element={<PublicCourtDetail />}></Route>
+          <Route path="/detail-info" element={<DetailInfo />}></Route>
         </Routes>
       </Box>
       <Navigation></Navigation>

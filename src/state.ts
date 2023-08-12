@@ -29,3 +29,8 @@ export const dateState = atom<Date>({
   key: "dateState",
   default: new Date(),
 });
+
+export const searchValueState = atom<string>({
+  key: "searchValueState",
+  default: "",
+});

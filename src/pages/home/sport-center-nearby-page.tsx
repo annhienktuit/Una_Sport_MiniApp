@@ -15,10 +15,14 @@ import { Location, SportCenter } from "../../models/models";
 import { realTimeDB } from "../../components/firebase/firebase";
 import { child, get, ref } from "firebase/database";
 import { handleLocationApi } from "../../utils/calculateLocation";
-import { getNearestSportCenters } from "../../models/functions";
+import {
+  getNearestSportCenters,
+  searchAndRankSportCenters,
+} from "../../models/functions";
 import { generateRandomNumber } from "../../utils/ultils";
 import { slectedSportCenterState } from "../../state";
 import { useRecoilState } from "recoil";
+import { searchValueState } from "../../state";
 
 export const SportCenterNearbyPage: FC = () => {
   const numbers: number[] = [1, 2, 3, 4, 5];
@@ -27,6 +31,7 @@ export const SportCenterNearbyPage: FC = () => {
   const [sportCenters, setSportCenters] = useState<SportCenter[]>([]);
   const [nearSportCenters, setNearSportCenters] = useState<SportCenter[]>([]);
   const [sportCenter, setSportCenter] = useRecoilState(slectedSportCenterState);
+  const [searchValue, setSearchValue] = useRecoilState(searchValueState);
 
   useEffect(() => {
     const dbRef = ref(realTimeDB);
@@ -34,9 +39,14 @@ export const SportCenterNearbyPage: FC = () => {
       .then((snapshot) => {
         if (snapshot.exists()) {
           const sportCenterData = snapshot.val();
+
           const sportCenterArray: SportCenter[] =
             Object.values(sportCenterData);
-          setSportCenters(sportCenterArray);
+          const searchRes = searchAndRankSportCenters(
+            searchValue,
+            sportCenterArray
+          );
+          setSportCenters(searchRes);
           console.log(sportCenterArray);
           handleLocationApi({
             success: (location) => {
@@ -57,7 +67,7 @@ export const SportCenterNearbyPage: FC = () => {
         console.log("Error rồi");
         console.error(error);
       });
-  }, []);
+  }, [searchValue]);
 
   function updateNearest(userLocation: Location, centers: SportCenter[]) {
     console.log(centers);

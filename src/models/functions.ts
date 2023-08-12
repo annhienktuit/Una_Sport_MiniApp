@@ -18,6 +18,10 @@ export function filterSportCentersWithAvailableCourts(sportCenters: SportCenter[
     let hasAvailableCourt = false;
 
     for (const yard of sportCenter.yards) {
+      if (!yard.bookedRanges) {
+        hasAvailableCourt = true;
+        break;
+      }
       const availableCourt = yard.bookedRanges.every(range => {
         return timestamp < range.start || timestamp >= range.end;
       });
@@ -71,6 +75,7 @@ function hasAvailableCourt(sportCenter: SportCenter, timestamp: number): boolean
   }
 
   return sportCenter.yards.some(yard =>
+    !yard.bookedRanges || yard.bookedRanges.length === 0 ||
     yard.bookedRanges.every(range => timestamp < range.start || timestamp >= range.end)
   );
 }

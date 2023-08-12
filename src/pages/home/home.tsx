@@ -9,8 +9,6 @@ import { SportCenterNearbyPage } from "./sport-center-nearby-page";
 const HomePage: React.FunctionComponent = () => {
   const [date, setDate] = useRecoilState(dateState);
 
-  
-
   return (
     <Page className="relative flex-1 flex flex-col ">
       <div className="flex-1 overflow-auto pb-16">
