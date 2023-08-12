@@ -1,10 +1,20 @@
 import React, { Suspense, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { getAppInfo } from "zmp-sdk";
 import pay from "../../models/models";
 import { userState, getInfo } from "../../state";
 
 function Welcome() {
+  const navigate = useNavigate();
+  const handleNavigateClick = () => {
+    const delay = 5000; // in milliseconds
+
+    setTimeout(() => {
+      // Delay fake Zalopay
+      navigate("/calendar");
+    }, delay);
+  };
   const user = useRecoilValue(userState);
   return (
     <>
@@ -19,7 +29,10 @@ function Welcome() {
                       src={user.avatar}
                       alt="Your Image"
                       className="w-full max-w-screen-lg mt-2 rounded-ful"
-                      onClick={() => pay(50000)}
+                      onClick={() => {
+                        handleNavigateClick();
+                        pay(50000);
+                      }}
                     />
                   </div>
                 </div>
