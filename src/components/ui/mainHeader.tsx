@@ -1,15 +1,26 @@
-import React, { FC } from "react";
-import { Box, Input, useNavigate } from "zmp-ui";
+import React, { FC, useState } from "react";
+import { Box, DatePicker, Input, useNavigate } from "zmp-ui";
 import { localizeString } from "../../assets/string";
+import DateBooker from "../booking/booker";
+import { DropDownButton } from "./dropdownButton";
 
 export const MainHeader: FC = () => {
-  const navigate = useNavigate();
+  const [date, setDate] = useState(new Date());
+
   return (
     <Box className="app-header bg-white" pl={4} pt={3} pr={4} pb={3}>
-      <Input.Search
-        onFocus={() => navigate("/search")}
-        placeholder={localizeString.searchPlaceHolder}
-      />
+      <Input.Search placeholder={localizeString.searchPlaceHolder} />
+      <DateBooker onChange={setDate}></DateBooker>
+      <div className="bg-white mt-3 flex gap-8">
+        <DropDownButton
+          labelString={"Môn"}
+          placeHolder={"Bóng đá"}
+        ></DropDownButton>
+        <DropDownButton
+          labelString={"Quận"}
+          placeHolder={"Quận Thủ Đức"}
+        ></DropDownButton>
+      </div>
     </Box>
   );
 };
