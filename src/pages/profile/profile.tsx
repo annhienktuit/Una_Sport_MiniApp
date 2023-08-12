@@ -4,7 +4,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { getAppInfo } from "zmp-sdk";
 import CustomBottomSheet from "../../components/ui/bottomsheets";
 import CustomPopup from "../../components/ui/popup";
-import icTick from "../../assets/ic_tick.webp";
 import { userState } from "../../state";
 
 function Welcome() {
@@ -83,9 +82,8 @@ function Welcome() {
           visible={isPopupVisible}
           title="Thanh toán thành công"
           onClose={() => setIsPopupVisible(false)}
-          imageSrc={icTick}
           homeButtonLabel="Trang chủ"
-          onHomeClick={() => navigate("/home")}
+          onHomeClick={() => navigate("/")}
           detailButtonLabel="Xem chi tiết"
           onDetailClick={() => setIsPopupVisible(false)}
         />

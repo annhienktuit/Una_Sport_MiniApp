@@ -5,7 +5,6 @@ const CustomPopup = ({
   visible,
   title,
   onClose,
-  imageSrc,
   homeButtonLabel,
   detailButtonLabel,
   onHomeClick,
@@ -14,7 +13,10 @@ const CustomPopup = ({
   return (
     <Modal visible={visible} title={title} onClose={onClose}>
       <Box p={6} className="flex flex-col items-center">
-        <img src={imageSrc} className="mb-6 w-1/3" />
+        <img
+          src="https://static.vecteezy.com/system/resources/previews/020/906/151/original/tick-icon-accept-approve-sign-design-free-free-png.png"
+          className="mb-6 w-1/3"
+        />
         <div className="flex justify-center">
           <Button
             onClick={onHomeClick || onClose}
