@@ -29,8 +29,11 @@ export const SportCenterListContent: FC = () => {
         if (snapshot.exists()) {
           const sportCenterData = snapshot.val();
           const sportCenterArray: SportCenter[] =
-            Object.values(sportCenterData);
-            const searchRes = fuse_searchAndRankSportCenters(searchValue, sportCenterArray);
+          Object.values(sportCenterData);
+          let searchRes = sportCenterArray;
+          if (typeof searchValue === 'string' && searchValue.length > 0) {
+            searchRes = fuse_searchAndRankSportCenters(searchValue, sportCenterArray);
+          }
           console.log("get List sport!");
           console.log(searchRes);
           const filterByDateArr = filterAvailableCourts(

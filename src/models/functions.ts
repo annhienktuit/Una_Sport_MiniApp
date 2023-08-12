@@ -1,4 +1,5 @@
 import Fuse from "fuse.js";
+import { string } from "prop-types";
 import { calcCrowFliesDistance } from "../utils/calculateLocation";
 import { District, SportCenter, SportType, Location } from "./models";
 
@@ -161,6 +162,13 @@ export function searchAndRankSportCenters(query: string, sportCenters: SportCent
 }
 
 export function fuse_searchAndRankSportCenters(query: string, sportCenters: SportCenter[]): SportCenter[] {
+  console.log("search");
+      console.log(string);
+  if (!string || string.length == 0) {
+    console.log("empty search");
+      console.log(string);
+      return sportCenters;
+  }
   const options = {
     keys: ['name', 'address'],
     threshold: 0.75,
