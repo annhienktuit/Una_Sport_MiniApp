@@ -1,10 +1,13 @@
-import React from "react";
-import { Page, Text } from "zmp-ui";
+import React, { useState } from "react";
+import { DatePicker, Page, Text } from "zmp-ui";
+import DateBooker from "../../components/booking/booker";
 
 const Calendar: React.FunctionComponent = () => {
+  const [date, setDate] = useState(new Date());
   return (
-    <Page className="bg-white page flex items-center justify-center h-screen">
-      <Text.Title size="xLarge">Lịch của tôi</Text.Title>
+    <Page>
+      <DatePicker></DatePicker>
+      <DateBooker onChange={setDate}></DateBooker>
     </Page>
   );
 };
