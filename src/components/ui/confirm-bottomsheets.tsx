@@ -1,12 +1,18 @@
 import React from "react";
 import { Button, Sheet, Text, Box, Page } from "zmp-ui";
 
-const CustomBottomSheet = ({ title, body, visible, onClose }) => {
+const ConfirmBottomSheet = ({
+  title,
+  body,
+  visible,
+  onNegativeClick,
+  onPositiveClick,
+}) => {
   return (
     <Page>
       <Sheet
         visible={visible}
-        onClose={onClose}
+        onClose={onNegativeClick}
         autoHeight
         mask
         handler
@@ -25,12 +31,12 @@ const CustomBottomSheet = ({ title, body, visible, onClose }) => {
           </Box>
           <Box flex flexDirection="row" mt={1}>
             <Box style={{ flex: 1 }} pr={1}>
-              <Button fullWidth variant="secondary" onClick={onClose}>
+              <Button fullWidth variant="secondary" onClick={onNegativeClick}>
                 Để sau
               </Button>
             </Box>
             <Box style={{ flex: 1 }} pl={1}>
-              <Button fullWidth onClick={onClose}>
+              <Button fullWidth onClick={onPositiveClick}>
                 Cho phép
               </Button>
             </Box>
@@ -41,4 +47,4 @@ const CustomBottomSheet = ({ title, body, visible, onClose }) => {
   );
 };
 
-export default CustomBottomSheet;
+export default ConfirmBottomSheet;
