@@ -25,7 +25,11 @@ const tabs: Record<string, MenuItem> = {
 
 export type TabKeys = keyof typeof tabs;
 
-export const NO_BOTTOM_NAVIGATION_PAGES = ["/search", "/category", "/detail"];
+export const NO_BOTTOM_NAVIGATION_PAGES = [
+  "/search",
+  "/detailSportCenter",
+  "/detail",
+];
 
 export const Navigation: FC = () => {
   const [activeTab, setActiveTab] = useState<TabKeys>("/");

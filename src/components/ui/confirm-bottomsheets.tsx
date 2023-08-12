@@ -1,5 +1,8 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 import { Button, Sheet, Text, Box, Page } from "zmp-ui";
+import { postNotification } from "../../services/apiServices";
+import { userState } from "../../state";
 
 const ConfirmBottomSheet = ({
   title,
@@ -8,6 +11,8 @@ const ConfirmBottomSheet = ({
   onNegativeClick,
   onPositiveClick,
 }) => {
+  const user = useRecoilValue(userState);
+
   return (
     <Page>
       <Sheet
@@ -36,7 +41,13 @@ const ConfirmBottomSheet = ({
               </Button>
             </Box>
             <Box style={{ flex: 1 }} pl={1}>
-              <Button fullWidth onClick={onPositiveClick}>
+              <Button
+                fullWidth
+                onClick={() => {
+                  postNotification(user.id);
+                  onPositiveClick();
+                }}
+              >
                 Cho phép
               </Button>
             </Box>
