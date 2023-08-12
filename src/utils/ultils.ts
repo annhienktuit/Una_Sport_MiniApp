@@ -16,7 +16,7 @@ function formatTimeRange(start: number, end: number): string {
 }
 
 function formatDate(timestamp: number): string {
-  const date = new Date(timestamp * 1000);
+  const date = new Date(timestamp);
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
@@ -29,7 +29,7 @@ export function generateBookingInfo(yard: Yard, _sportCenter: SportCenter, date:
   const sportCenterId = _sportCenter.id;
 
   const formattedTimeRange = formatTimeRange(start, end);
-  const formattedDate = formatDate(date.getDate());
+  const formattedDate = formatDate(date.getTime());
 
   const bookingInfo = `
 Sân được chọn: ${sportCenter}
