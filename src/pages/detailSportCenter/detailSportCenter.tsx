@@ -83,7 +83,7 @@ const timeRange = [ startTime.getTime()/1000, endTime.getTime()/1000];
   return (    
     <Page className="relative flex-1 flex flex-col bg-white">
       <Suspense>
-      <Header title="" />
+      <div>
       <div className="h-[200px] relative flex-col flex">
         <img
           loading="lazy"
@@ -149,6 +149,7 @@ const timeRange = [ startTime.getTime()/1000, endTime.getTime()/1000];
           }}
           onNegativeClick={() => setIsSheetVisible(false)}
         />
+        </div>
         </Suspense>
     </Page>
   );
