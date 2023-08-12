@@ -8,11 +8,11 @@ import { SportCenter } from "../../models/models";
 import { realTimeDB } from "../../components/firebase/firebase";
 import { generateRandomNumber } from "../../utils/ultils";
 import { useNavigate } from "react-router";
-import { slectedSportCenterState } from "../../state";
+import { searchValueState, slectedSportCenterState } from "../../state";
 
 import { useRecoilState } from "recoil";
 import { dateState } from "../../state";
-import { filterAvailableCourts } from "../../models/functions";
+import { filterAvailableCourts, fuse_searchAndRankSportCenters, searchAndRankSportCenters } from "../../models/functions";
 
 export const SportCenterListContent: FC = () => {
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ export const SportCenterListContent: FC = () => {
   const [sportCenter, setSportCenter] = useRecoilState(slectedSportCenterState);
 
   const [date, setDate] = useRecoilState(dateState);
+  const [searchValue, setSearchValue] = useRecoilState(searchValueState);
 
   useEffect(() => {
     const dbRef = ref(realTimeDB);
@@ -29,9 +30,11 @@ export const SportCenterListContent: FC = () => {
           const sportCenterData = snapshot.val();
           const sportCenterArray: SportCenter[] =
             Object.values(sportCenterData);
+            const searchRes = fuse_searchAndRankSportCenters(searchValue, sportCenterArray);
           console.log("get List sport!");
+          console.log(searchRes);
           const filterByDateArr = filterAvailableCourts(
-            sportCenterArray,
+            searchRes,
             date.getDate()
           );
           setSportCenters(filterByDateArr);
@@ -42,7 +45,7 @@ export const SportCenterListContent: FC = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [date]);
+  }, [date, searchValue]);
 
   const handleClick = (data: SportCenter) => {
     console.log("Clicked data:", data);

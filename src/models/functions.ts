@@ -163,7 +163,7 @@ export function searchAndRankSportCenters(query: string, sportCenters: SportCent
 export function fuse_searchAndRankSportCenters(query: string, sportCenters: SportCenter[]): SportCenter[] {
   const options = {
     keys: ['name', 'address'],
-    threshold: 0.3,
+    threshold: 0.75,
   };
 
   const fuse = new Fuse(sportCenters, options);
