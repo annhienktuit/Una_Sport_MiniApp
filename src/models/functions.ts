@@ -61,10 +61,20 @@ function hasAvailableCourtForSportType(sportCenter: SportCenter, sportType: Spor
 }
 
 function hasAvailableCourt(sportCenter: SportCenter, timestamp: number): boolean {
+  if (!sportCenter.yards) {
+    // Return false when yards prop does not exist
+    return true;
+  }
+  if (sportCenter.yards.length === 0) {
+    // Return true when there are no yards (no bookings)
+    return true;
+  }
+
   return sportCenter.yards.some(yard =>
     yard.bookedRanges.every(range => timestamp < range.start || timestamp >= range.end)
   );
 }
+
 
 export function filterSportCentersByRating(sportCenters: SportCenter[], minRating: number): SportCenter[] {
   return sportCenters.filter(sportCenter => sportCenter.rating >= minRating);

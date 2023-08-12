@@ -1,10 +1,16 @@
 import React from "react";
+import { useRecoilState } from "recoil";
 import { Page, Text } from "zmp-ui";
 import { MainHeader } from "../../components/ui/mainHeader";
+import { dateState } from "../../state";
 import { SportCenterListContent } from "./sport-center-list";
 import { SportCenterNearbyPage } from "./sport-center-nearby-page";
 
 const HomePage: React.FunctionComponent = () => {
+  const [date, setDate] = useRecoilState(dateState);
+
+  
+
   return (
     <Page className="relative flex-1 flex flex-col ">
       <div className="flex-1 overflow-auto pb-16">

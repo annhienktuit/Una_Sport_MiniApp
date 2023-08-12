@@ -8,12 +8,18 @@ import { SportCenter } from "../../models/models";
 import { realTimeDB } from "../../components/firebase/firebase";
 import { generateRandomNumber } from "../../utils/ultils";
 
+import { useRecoilState } from "recoil";
+import { dateState } from "../../state";
+import { filterAvailableCourts } from "../../models/functions";
+
 export const SportCenterListContent: FC = () => {
   const numbers: number[] = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ];
 
   const [sportCenters, setSportCenters] = useState<SportCenter[]>([]);
+
+  const [date, setDate] = useRecoilState(dateState);
 
   useEffect(() => {
     const dbRef = ref(realTimeDB);
@@ -22,7 +28,9 @@ export const SportCenterListContent: FC = () => {
         if (snapshot.exists()) {
           const sportCenterData = snapshot.val();
           const sportCenterArray: SportCenter[] = Object.values(sportCenterData);
-          setSportCenters(sportCenterArray);
+          console.log("get List sport!");
+          const filterByDateArr = filterAvailableCourts(sportCenterArray, date.getDate())
+          setSportCenters(filterByDateArr);
         } else {
           console.log('No data available');
         }
@@ -30,7 +38,7 @@ export const SportCenterListContent: FC = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [date]);
 
   const handleClick = () => {
     console.log(sportCenters);

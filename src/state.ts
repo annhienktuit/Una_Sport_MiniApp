@@ -18,3 +18,8 @@ export const getInfo = selector({
     return appInfo;
   },
 });
+
+export const dateState = atom<Date>({
+  key: "dateState",
+  default: new Date(),
+});
