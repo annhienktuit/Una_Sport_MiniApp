@@ -1,8 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getDatabase, onValue, ref } from "@firebase/database";
-import firebase from 'firebase/app';
 import 'firebase/database';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -22,13 +20,14 @@ const firebaseConfig = {
   measurementId: "G-R3255YD7QJ",
 };
 
-const app = firebase.initializeApp(firebaseConfig);
-export const realTimeDB =  getDatabase(app);
+const fireApp = initializeApp(firebaseConfig);
+export const realTimeDB =  getDatabase(fireApp);
+const sportCentersRef = ref(realTimeDB, 'SportCenter');
 
-// Get a reference to the "sportCenters" node in the database
-const sportCentersRef = ref(realTimeDB, 'sportCenters');
+export let getSportCenter: any = null;
 
 onValue(sportCentersRef, (snapshot) => {
   const data = snapshot.val();
+  getSportCenter = data;
   console.log(data);
 });
