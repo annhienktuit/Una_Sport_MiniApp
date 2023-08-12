@@ -2,7 +2,7 @@ import React from "react";
 import { Page, Text } from "zmp-ui";
 import { MainHeader } from "../../components/ui/mainHeader";
 import { SportCenterListContent } from "./sport-center-list";
-import NearBySportCenterCarousel from "./sport-center-nearby-page";
+import { SportCenterNearbyPage } from "./sport-center-nearby-page";
 
 const HomePage: React.FunctionComponent = () => {
   return (
@@ -17,6 +17,7 @@ const HomePage: React.FunctionComponent = () => {
           </Text>
         </div>
         <MainHeader />
+        <SportCenterNearbyPage></SportCenterNearbyPage>
         <SportCenterListContent></SportCenterListContent>
       </div>
     </Page>
