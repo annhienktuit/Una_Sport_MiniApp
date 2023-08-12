@@ -1,7 +1,7 @@
 import { getDatabase, ref, set } from "firebase/database";
-import { firebaseDB } from "./firebase";
+import { realTimeDB } from "./firebase";
+
 export function writeUserData(key, value) {
-  const db = getDatabase(firebaseDB);
-  set(ref(db, "data/" + key), value);
+  set(ref(realTimeDB, "data/" + key), value);
   console.log(value);
 }
