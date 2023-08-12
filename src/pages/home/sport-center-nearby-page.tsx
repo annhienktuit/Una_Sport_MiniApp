@@ -1,6 +1,6 @@
 // import Swiper core and required modules
 import { Autoplay, Pagination } from "swiper/modules";
-import { Box, Text } from "zmp-ui";
+import { Box, Text, useNavigate } from "zmp-ui";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -17,20 +17,25 @@ import { child, get, ref } from "firebase/database";
 import { handleLocationApi } from "../../utils/calculateLocation";
 import { getNearestSportCenters } from "../../models/functions";
 import { generateRandomNumber } from "../../utils/ultils";
+import { slectedSportCenterState } from "../../state";
+import { useRecoilState } from "recoil";
 
 export const SportCenterNearbyPage: FC = () => {
   const numbers: number[] = [1, 2, 3, 4, 5];
+  const navigate = useNavigate();
 
   const [sportCenters, setSportCenters] = useState<SportCenter[]>([]);
   const [nearSportCenters, setNearSportCenters] = useState<SportCenter[]>([]);
+  const [sportCenter, setSportCenter] = useRecoilState(slectedSportCenterState);
 
   useEffect(() => {
     const dbRef = ref(realTimeDB);
-    get(child(dbRef, 'SportCenter'))
+    get(child(dbRef, "SportCenter"))
       .then((snapshot) => {
         if (snapshot.exists()) {
           const sportCenterData = snapshot.val();
-          const sportCenterArray: SportCenter[] = Object.values(sportCenterData);
+          const sportCenterArray: SportCenter[] =
+            Object.values(sportCenterData);
           setSportCenters(sportCenterArray);
           console.log(sportCenterArray);
           handleLocationApi({
@@ -40,28 +45,38 @@ export const SportCenterNearbyPage: FC = () => {
             },
             fail: (error) => {
               // Handle failure
-              console.log("Error location rồi")
-              console.error('Error:', error);
+              console.log("Error location rồi");
+              console.error("Error:", error);
             },
           });
         } else {
-          console.log('No data available');
+          console.log("No data available");
         }
       })
       .catch((error) => {
-        console.log("Error rồi")
+        console.log("Error rồi");
         console.error(error);
       });
   }, []);
 
   function updateNearest(userLocation: Location, centers: SportCenter[]) {
     console.log(centers);
-    const nearestSportCenters = getNearestSportCenters(userLocation, centers, 5);
+    const nearestSportCenters = getNearestSportCenters(
+      userLocation,
+      centers,
+      5
+    );
     console.log(nearestSportCenters);
     setNearSportCenters(nearestSportCenters);
   }
-  
+
   const randomCount = generateRandomNumber();
+
+  const handleClick = (data: SportCenter) => {
+    console.log("Clicked data:", data);
+    setSportCenter(data);
+    navigate("/detailSportCenter");
+  };
 
   return (
     <Section title={"Gần bạn"}>
@@ -77,7 +92,10 @@ export const SportCenterNearbyPage: FC = () => {
       >
         {nearSportCenters.map((center) => (
           <SwiperSlide>
-            <div className="rounded-lg overflow-clip w-full flex flex-col justify-center items-top bg-white h-[300px]">
+            <div
+              onClick={() => handleClick(center)}
+              className="rounded-lg overflow-clip w-full flex flex-col justify-center items-top bg-white h-[300px]"
+            >
               <div className="w-full h-44 relative">
                 <img
                   loading="lazy"
@@ -99,13 +117,13 @@ export const SportCenterNearbyPage: FC = () => {
                   {center.address}
                 </Text>
                 <Box flex flex-h>
-                <Text size={"xSmall"} className="text-text03">
-                  {`Còn ${generateRandomNumber()} sân`}
-                </Text>
-                <Box flex className="flex-grow"></Box>
-                <Text size={"small"} className="text-text02">
-                  120.000đ / giờ
-                </Text>
+                  <Text size={"xSmall"} className="text-text03">
+                    {`Còn ${generateRandomNumber()} sân`}
+                  </Text>
+                  <Box flex className="flex-grow"></Box>
+                  <Text size={"small"} className="text-text02">
+                    120.000đ / giờ
+                  </Text>
                 </Box>
               </div>
             </div>

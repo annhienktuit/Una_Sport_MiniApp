@@ -9,7 +9,6 @@ import { realTimeDB } from "../../components/firebase/firebase";
 import { generateRandomNumber } from "../../utils/ultils";
 import { useNavigate } from "react-router";
 import { slectedSportCenterState } from "../../state";
-import { useRecoilState } from "recoil";
 
 import { useRecoilState } from "recoil";
 import { dateState } from "../../state";
