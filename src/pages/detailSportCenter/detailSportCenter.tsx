@@ -132,7 +132,7 @@ const timeRange = [ startTime.getTime()/1000, endTime.getTime()/1000];
             <div
               key={key}
               onClick={() => handleClick(data)}
-              className="bg-button aspect-square rounded-lg w-full flex items-center justify-center"
+              className="bg-green-600 text-white aspect-square rounded-lg w-full flex items-center justify-center "
             >
               {key}
             </div>
