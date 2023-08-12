@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { localizeString } from "../../assets/string";
-import { Text } from "zmp-ui";
+import { Text, useNavigate } from "zmp-ui";
 import { Section } from "../../components/ui/section";
 import { RatingStar } from "../../components/ui/ratingStar";
 
@@ -9,9 +9,14 @@ export const PublicCourtListContent: FC = () => {
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ];
 
+  const navigate = useNavigate();
+  const handlePublicCourtClick = () => {
+    navigate("/public-court");
+  };
+
   return (
     <Section title={localizeString.locationListHeader}>
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 gap-4" onClick={handlePublicCourtClick}>
         {numbers.map((number) => (
           <div
             key={number}

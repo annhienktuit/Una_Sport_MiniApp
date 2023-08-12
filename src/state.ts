@@ -24,3 +24,8 @@ export const slectedSportCenterState = atom<SportCenter | null>({
   key: 'slectedSportCenterState',
   default: null, 
 });
+
+export const dateState = atom<Date>({
+  key: "dateState",
+  default: new Date(),
+});

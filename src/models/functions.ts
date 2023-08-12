@@ -61,10 +61,20 @@ function hasAvailableCourtForSportType(sportCenter: SportCenter, sportType: Spor
 }
 
 function hasAvailableCourt(sportCenter: SportCenter, timestamp: number): boolean {
+  if (!sportCenter.yards) {
+    // Return false when yards prop does not exist
+    return true;
+  }
+  if (sportCenter.yards.length === 0) {
+    // Return true when there are no yards (no bookings)
+    return true;
+  }
+
   return sportCenter.yards.some(yard =>
     yard.bookedRanges.every(range => timestamp < range.start || timestamp >= range.end)
   );
 }
+
 
 export function filterSportCentersByRating(sportCenters: SportCenter[], minRating: number): SportCenter[] {
   return sportCenters.filter(sportCenter => sportCenter.rating >= minRating);
@@ -157,5 +167,20 @@ export function fuse_searchAndRankSportCenters(query: string, sportCenters: Spor
 
   return searchResults.map(result => result.item);
 }
+
+// Sort pop
+
+export function getNearestSportCenters(userLocation: Location, sportCenters: SportCenter[], top: number): SportCenter[] {
+  const sortedSportCenters = sportCenters.slice(); // Create a copy of the array
+  sortedSportCenters.sort((center1, center2) => {
+    const distance1 = calcCrowFliesDistance(userLocation, center1.location);
+    const distance2 = calcCrowFliesDistance(userLocation, center2.location);
+    return distance1 - distance2;
+  });
+
+  const actualTop = Math.min(top, sortedSportCenters.length); // Ensure top is within bounds
+  return sortedSportCenters.slice(0, actualTop); // Return the specified number of nearest sport centers
+}
+
 
 

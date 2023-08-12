@@ -11,10 +11,16 @@ import { useNavigate } from "react-router";
 import { slectedSportCenterState } from "../../state";
 import { useRecoilState } from "recoil";
 
+import { useRecoilState } from "recoil";
+import { dateState } from "../../state";
+import { filterAvailableCourts } from "../../models/functions";
+
 export const SportCenterListContent: FC = () => {
   const navigate = useNavigate();
   const [sportCenters, setSportCenters] = useState<SportCenter[]>([]);
   const [sportCenter, setSportCenter] = useRecoilState(slectedSportCenterState);
+
+  const [date, setDate] = useRecoilState(dateState);
 
   useEffect(() => {
     const dbRef = ref(realTimeDB);
@@ -24,7 +30,12 @@ export const SportCenterListContent: FC = () => {
           const sportCenterData = snapshot.val();
           const sportCenterArray: SportCenter[] =
             Object.values(sportCenterData);
-          setSportCenters(sportCenterArray);
+          console.log("get List sport!");
+          const filterByDateArr = filterAvailableCourts(
+            sportCenterArray,
+            date.getDate()
+          );
+          setSportCenters(filterByDateArr);
         } else {
           console.log("No data available");
         }
@@ -32,7 +43,7 @@ export const SportCenterListContent: FC = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [date]);
 
   const handleClick = (data: SportCenter) => {
     console.log("Clicked data:", data);
@@ -55,7 +66,7 @@ export const SportCenterListContent: FC = () => {
             <div className="h-24 aspect-square relative">
               <img
                 loading="lazy"
-                src="https://chungcumulberrylane.org/wp-content/uploads/sites/68/2014/10/san-cau-long.jpg"
+                src={data.image[0]}
                 className="absolute left-0 right-0 top-0 bottom-0 w-full h-full object-cover object-center rounded-lg bg-skeleton"
               />
             </div>
@@ -80,7 +91,7 @@ export const SportCenterListContent: FC = () => {
                 {data.address}
               </Text>
               <Text size={"xxSmall"} className="text-text03">
-                {`Còn ${randomCount} sân`}
+                {`Còn ${generateRandomNumber()} sân`}
               </Text>
               <Text size={"xSmall"} className="text-text01"></Text>
             </div>
