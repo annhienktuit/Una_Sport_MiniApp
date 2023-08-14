@@ -1,4 +1,5 @@
 import Fuse from "fuse.js";
+import { string } from "prop-types";
 import { calcCrowFliesDistance } from "../utils/calculateLocation";
 import { District, SportCenter, SportType, Location } from "./models";
 
@@ -23,7 +24,7 @@ export function filterSportCentersWithAvailableCourts(sportCenters: SportCenter[
         break;
       }
       const availableCourt = yard.bookedRanges.every(range => {
-        return timestamp < range.start || timestamp >= range.end;
+        return timestamp < range[0] || timestamp >= range[1];
       });
 
       if (availableCourt) {
@@ -76,10 +77,9 @@ function hasAvailableCourt(sportCenter: SportCenter, timestamp: number): boolean
 
   return sportCenter.yards.some(yard =>
     !yard.bookedRanges || yard.bookedRanges.length === 0 ||
-    yard.bookedRanges.every(range => timestamp < range.start || timestamp >= range.end)
+    yard.bookedRanges.every(range => timestamp < range[0] || timestamp >= range[1])
   );
 }
-
 
 export function filterSportCentersByRating(sportCenters: SportCenter[], minRating: number): SportCenter[] {
   return sportCenters.filter(sportCenter => sportCenter.rating >= minRating);
@@ -147,7 +147,7 @@ export function searchAndRankSportCenters(query: string, sportCenters: SportCent
     if (nameMatchIndex !== -1) {
       matchScore += 1;
     }
-    
+
     if (addressMatchIndex !== -1) {
       matchScore += 0.5; // You can adjust the score based on your criteria
     }
@@ -162,9 +162,16 @@ export function searchAndRankSportCenters(query: string, sportCenters: SportCent
 }
 
 export function fuse_searchAndRankSportCenters(query: string, sportCenters: SportCenter[]): SportCenter[] {
+  console.log("search");
+      console.log(string);
+  if (!string || string.length == 0) {
+    console.log("empty search");
+      console.log(string);
+      return sportCenters;
+  }
   const options = {
     keys: ['name', 'address'],
-    threshold: 0.3,
+    threshold: 0.75,
   };
 
   const fuse = new Fuse(sportCenters, options);
@@ -186,6 +193,7 @@ export function getNearestSportCenters(userLocation: Location, sportCenters: Spo
   const actualTop = Math.min(top, sortedSportCenters.length); // Ensure top is within bounds
   return sortedSportCenters.slice(0, actualTop); // Return the specified number of nearest sport centers
 }
+
 
 
 

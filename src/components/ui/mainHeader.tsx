@@ -12,6 +12,7 @@ export const MainHeader: FC = () => {
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
+    console.log(searchValue);
     setSearchValue(newValue);
   };
 

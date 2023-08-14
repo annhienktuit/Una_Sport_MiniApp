@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { getAppInfo, getLocation, getUserInfo } from "zmp-sdk";
+import { getAppInfo, getLocation, getUserInfo, openChat } from "zmp-sdk";
 import { Booking, SportCenter } from "./models/models";
 
 export const userState = selector({
@@ -19,6 +19,18 @@ export const getInfo = selector({
     return appInfo;
   },
 });
+
+export const openChatScreen = async (user_id) => {
+  try {
+    await openChat({
+      type: "user",
+      id: user_id,
+      message: "Tôi muốn liên hệ đặt sân",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const slectedSportCenterState = atom<SportCenter | null>({
   key: "slectedSportCenterState",

@@ -18,8 +18,8 @@ export interface SportCenter {
 }
 
 export interface Yard {
-  id: string; // SportCenterId_number
-  sportCenter: SportCenter; //
+  // id: string; // SportCenterId_number
+  sportCenter: string; //
   number: number; // Sân số mấy
 
   bookings: Booking[]; // Các đơn đặt chỗ của sân này
@@ -31,7 +31,7 @@ export interface Booking {
   yard: Yard;
   host: UserInfo;
 
-  timeRange: TimeRange; // Giờ đặt sân
+  timeRange: number[]; // Giờ đặt sân
 
   guests: UserInfo[]; // Member đã join
   isPublic: boolean; // Có tuyển người lạ?
@@ -54,14 +54,10 @@ export interface Location {
 }
 
 export interface UserInfo {
-  id: string;
-  favouriteSport: SportType[]; // Mảng các loại thể thao yêu thích
-  zaUserInfo: {
     id: string;
     name: string;
     avatar: string;
-    idByOA?: string;
-  };
+    idByOA?: string | undefined;
 }
 
 export interface SportType {
